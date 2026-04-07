@@ -260,7 +260,7 @@ body {
 
     <div class="nav-menu">
         <div class="nav-left">
-            <a href=".php">Dashboard</a>
+            <a href="index.php">Dashboard</a>
             <a href="?menu=artikel">Artikel</a>
 
             <!-- Dropdown Kategori & Tag -->

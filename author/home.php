@@ -24,7 +24,7 @@
                 <h3><?= $d['judul']; ?></h3>
                 <p><?= substr($d['isi'],0,60); ?>...</p>
 
-                <a href="?menu=edit_artikel&id=<?= $d['id_artikel']; ?>" class="btn">Edit</a>
+                <a href="?menu=edit_artikel&id_artikel=<?= $d['id_artikel']; ?>" class="btn">Edit</a>
             </div>
         </div>
         <?php } ?>

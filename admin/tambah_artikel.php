@@ -1,56 +1,57 @@
-<?php
-include 'koneksi.php';
+<?php 
+include 'koneksi.php'; 
 
-/* CEK LOGIN */
+// CEK LOGIN
 if(!isset($_SESSION['id_user'])){
     header("location:login.php");
     exit;
 }
 
-/* AMBIL DATA KATEGORI */
+// AMBIL DATA DARI ADMIN
 $kategori = mysqli_query($conn,"SELECT * FROM kategori");
+$tag = mysqli_query($conn,"SELECT * FROM tag");
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tambah Artikel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
 <style>
+
 body{
     background: linear-gradient(120deg,#e5e7eb,#38bdf8);
     font-family:'Poppins',sans-serif;
 }
 
-/* WRAPPER */
-.form-wrapper{
-    margin-top:120px;
-    display:flex;
-    justify-content:center;
+.container{
+    padding-top:90px; /* 🔥 ini kunci utama */
+    padding-left:20px;
+    padding-right:20px;
 }
 
-/* FORM CARD */
+/* CARD */
 .form-card{
-    width:700px;
+    max-width:700px;
+    margin:auto;
     background:white;
     padding:35px;
     border-radius:15px;
     box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* TITLE */
-.form-card h2{
-    margin-bottom:25px;
-}
-
-/* FORM GROUP */
+/* FORM */
 .form-group{
     margin-bottom:18px;
 }
 
-/* LABEL */
 label{
     display:block;
     font-weight:500;
     margin-bottom:6px;
 }
 
-/* INPUT */
 input, textarea, select{
     width:100%;
     padding:10px;
@@ -58,31 +59,44 @@ input, textarea, select{
     border:1px solid #ccc;
 }
 
-/* TEXTAREA */
 textarea{
-    height:140px;
+    height:130px;
 }
 
-/* BUTTON AREA */
+/* TAG */
+.tag-box{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.tag-item{
+    background:#f1f5f9;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    cursor:pointer;
+}
+
+/* BUTTON */
 .button-area{
     margin-top:25px;
     display:flex;
     gap:10px;
 }
 
-/* BUTTON */
 .btn{
-    flex:1;
-    padding:12px;
-    border:none;
+    padding:10px 18px;
     border-radius:20px;
+    text-decoration:none;
+    color:white;
+    border:none;
     cursor:pointer;
-    font-weight:500;
+    font-size:14px;
 }
 
 .btn-simpan{
     background:#0d6efd;
-    color:white;
 }
 
 .btn-simpan:hover{
@@ -91,31 +105,35 @@ textarea{
 
 .btn-kembali{
     background:#6c757d;
-    color:white;
-    text-decoration:none;
-    text-align:center;
-    line-height:38px;
 }
+
 </style>
+</head>
 
-<div class="form-wrapper">
+<body>
+
+<div class="container">
+
 <div class="form-card">
+    <h2>Tambah Artikel</h2>
+    <a href="?menu=artikel" class="btn btn-kembali">← Kembali</a>
+</div>
 
-<h2>Tambah Artikel</h2>
+<div class="form-card">
 
 <form action="index.php?menu=simpan_artikel" method="POST" enctype="multipart/form-data">
 
-<!-- ID USER OTOMATIS -->
+<!-- ID USER AUTO -->
 <input type="hidden" name="id_user" value="<?= $_SESSION['id_user']; ?>">
 
 <div class="form-group">
 <label>Judul Artikel</label>
-<input type="text" name="judul" required>
+<input type="text" name="judul" placeholder="Masukkan judul..." required>
 </div>
 
 <div class="form-group">
 <label>Isi Artikel</label>
-<textarea name="isi" required></textarea>
+<textarea name="isi" placeholder="Tulis isi artikel..." required></textarea>
 </div>
 
 <div class="form-group">
@@ -128,11 +146,23 @@ textarea{
 <select name="id_kategori" required>
 <option value="">-- Pilih Kategori --</option>
 <?php while($k=mysqli_fetch_assoc($kategori)){ ?>
-<option value="<?= htmlspecialchars($k['id_kategori']); ?>">
+<option value="<?= $k['id_kategori']; ?>">
 <?= htmlspecialchars($k['nama_kategori']); ?>
 </option>
 <?php } ?>
 </select>
+</div>
+
+<div class="form-group">
+<label>Pilih Tag</label>
+<div class="tag-box">
+<?php while($t=mysqli_fetch_assoc($tag)){ ?>
+<label class="tag-item">
+<input type="checkbox" name="tag[]" value="<?= $t['id_tag']; ?>">
+<?= htmlspecialchars($t['nama_tag']); ?>
+</label>
+<?php } ?>
+</div>
 </div>
 
 <div class="form-group">
@@ -142,9 +172,12 @@ textarea{
 
 <div class="button-area">
 <button type="submit" class="btn btn-simpan">Simpan Artikel</button>
-<a href="index.php?menu=artikel" class="btn btn-kembali">Kembali</a>
 </div>
 
 </form>
+
 </div>
 </div>
+
+</body>
+</html>

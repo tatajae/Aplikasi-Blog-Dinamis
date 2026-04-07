@@ -2,16 +2,16 @@
 session_start();
 include "koneksi.php";
 
-$id = $_GET['id_artikel'];
+$id_artikel = $_GET['id_artikel'];
 
-$data = mysqli_query($conn,"SELECT * FROM artikel WHERE id_artikel='$id'");
+$data = mysqli_query($conn,"SELECT * FROM artikel WHERE id_artikel='$id_artikel'");
 $d = mysqli_fetch_assoc($data);
 
 $komentar = mysqli_query($conn,"
 SELECT komentar.*, users.username 
 FROM komentar 
 JOIN users ON komentar.id_user=users.id_user
-WHERE id_artikel='$id' ORDER BY id_komentar DESC
+WHERE id_artikel='$id_artikel' ORDER BY id_komentar DESC
 ");
 ?>
 
@@ -166,7 +166,7 @@ textarea{
     <div class="logo">BlogKu</div>
     <div>
         <a href="index.php">Home</a>
-        <?php if(isset($_SESSION['user'])){ ?>
+        <?php if(isset($_SESSION['id_user'])){ ?>
             <a href="logout.php">Logout</a>
         <?php }else{ ?>
             <a href="login.php">Login</a>
@@ -207,7 +207,7 @@ textarea{
     <?php } ?>
 
     <!-- LOGIN CHECK -->
-    <?php if(!isset($_SESSION['user'])){ ?>
+    <?php if(!isset($_SESSION['id_user'])){ ?>
         <div class="login-alert">
             🔒 Login dulu untuk komentar <br><br>
             <a href="login.php" class="btn">Login</a>

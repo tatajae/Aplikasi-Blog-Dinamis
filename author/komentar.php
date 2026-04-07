@@ -89,7 +89,7 @@ body{
     <td><?= $no++; ?></td>
     <td><?= $d['judul']; ?></td>
     <td><?= $d['nama']; ?></td>
-    <td><?= $d['isi']; ?></td>
+    <td><?= $d['komentar']; ?></td>
 </tr>
 
 <?php } ?>
