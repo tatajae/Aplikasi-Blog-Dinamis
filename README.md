@@ -10,26 +10,31 @@ Aplikasi ini dibangun menggunakan **PHP dan MySQL** sehingga konten yang ditampi
 * Login Admin
 * Logout
 * Manajemen pengguna sistem
+
 📰 Manajemen Artikel
 
 * Tambah artikel
 * Edit artikel
 * Hapus artikel
 * Melihat daftar artikel
+
 📂 Manajemen Kategori
 
 * Menambahkan kategori artikel
 * Mengedit kategori
 * Menghapus kategori
+
 🏷️ Manajemen Tag
 
 * Menambahkan tag artikel
 * Mengedit tag
 * Menghapus tag
+
 💬 Komentar Artikel
 
 * Pengunjung dapat memberikan komentar
 * Admin dapat mengelola komentar
+
 🌐 Tampilan Blog
 
 * Halaman daftar artikel
