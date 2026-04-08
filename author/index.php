@@ -1,11 +1,17 @@
 <?php
 session_start();
 
-if(isset($_SESSION['username']) and isset($_SESSION['password'])){
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+    exit;
+}
 
-    include "dashboard.php";
+// kalau user biasa, jangan masuk dashboard
+if ($_SESSION['role'] == 'pengguna') {
+    header("Location: ../index.php");
+    exit;
 }
-else{
-    include "login.php";
-}
+
+// kalau admin / author → lanjut ke dashboard
+include "dashboard.php";
 ?>

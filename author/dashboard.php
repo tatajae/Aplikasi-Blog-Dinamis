@@ -2,7 +2,7 @@
 include 'koneksi.php';
 
 // proteksi halaman
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['login'])){
     header("Location: index.php");
     exit;
 }

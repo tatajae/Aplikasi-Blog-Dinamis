@@ -2,56 +2,34 @@
 session_start();
 include "koneksi.php";
 
-if(isset($_POST['login'])) {
+$username = $_POST['username'];
+$password = md5($_POST['password']);
+$role     = $_POST['role'];
 
-    $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    $captcha = $_POST['captcha'];
-    $role = $_POST['role']; // ambil role dari form login
+$query = mysqli_query($conn, "SELECT * FROM users 
+                             WHERE username='$username' 
+                             AND password='$password' 
+                             AND role='$role'");
 
-    // cek captcha
-    if($captcha != $_SESSION['captcha']){
-        echo "<script>
-        alert('Captcha salah!');
-        window.location='index.php';
-        </script>";
-        exit;
-    }
+$data = mysqli_fetch_assoc($query);
 
-    // query cek username & password
-    $query = mysqli_query($conn,"SELECT * FROM users WHERE username ='$username' AND password ='$password'");
-    $cek = mysqli_num_rows($query);
+if ($data) {
+    $_SESSION['login'] = true;
+    $_SESSION['id_user'] = $data['id_user']; // ✅ FIX
+    $_SESSION['username'] = $data['username'];
+    $_SESSION['role'] = $data['role'];
 
-    if($cek > 0){
-        $data = mysqli_fetch_assoc($query);
-
-        // cek role
-        if($data['role'] != $role){
-            echo "<script>
-            alert('Role yang dipilih tidak sesuai!');
-            window.location='index.php';
-            </script>";
-            exit;
-        }
-
-        // jika username, password, dan role sesuai
-        $_SESSION['login'] = true;
-        $_SESSION['id_user'] = $data['id_user'];
-        $_SESSION['username'] = $data['username'];
-        $_SESSION['password'] = $data['password'];
-        $_SESSION['nama'] = $data['nama'];
-        $_SESSION['role'] = $data['role'];
-
-        echo "<script>
-        alert('Login berhasil');
-        window.location='index.php';
-        </script>";
-
+    if ($role == 'admin') {
+        header("Location: admin/index.php");
+    } elseif ($role == 'author') {
+        header("Location: author/index.php");
     } else {
-        echo "<script>
-        alert('Username atau Password salah!');
-        window.location='index.php';
-        </script>";
+        header("Location: index.php");
     }
+    exit;
+
+} else {
+    header("Location: login.php?pesan=Login gagal!");
+    exit;
 }
 ?>

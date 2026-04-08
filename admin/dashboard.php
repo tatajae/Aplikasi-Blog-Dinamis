@@ -1,9 +1,8 @@
 <?php
 include 'koneksi.php';
 
-// proteksi halaman
-if(!isset($_SESSION['username'])){
-    header("Location: login.php");
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
     exit;
 }
 
@@ -278,7 +277,7 @@ body {
         </div>
 
         <div class="nav-right">
-            <a href="logout.php">Logout</a>
+            <a href="../logout.php">Logout</a>
         </div>
     </div>
 </div>

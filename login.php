@@ -1,129 +1,81 @@
-<?php
-session_start();
-include "koneksi.php";
-
-/* GENERATE CAPTCHA */
-if(!isset($_SESSION['captcha'])){
-    $_SESSION['captcha'] = rand(1000,9999);
-}
-
-if(isset($_POST['login'])){
-    $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    $captcha_input = $_POST['captcha'];
-
-    if($captcha_input != $_SESSION['captcha']){
-        $error = "Captcha salah!";
-    } else {
-        $cek = mysqli_query($conn,"SELECT * FROM users WHERE username='$username' AND password='$password'");
-        $data = mysqli_fetch_assoc($cek);
-
-        if(mysqli_num_rows($cek) > 0){
-            $_SESSION['id_user'] = $data['id_user'];
-            $_SESSION['username'] = $data['username'];
-
-            unset($_SESSION['captcha']);
-            header("location:index.php");
-        }else{
-            $error = "Username atau password salah!";
-        }
-    }
-
-    $_SESSION['captcha'] = rand(1000,9999); // refresh captcha
-}
-?>
-
+<?php ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            height: 100vh;
+            background: linear-gradient(to right, #4facfe, #cfd9df);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family:Poppins;
-    height:100vh;
-    background:linear-gradient(120deg,#e0f2fe,#f8fafc);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
 
-/* GLASS CARD */
-.card{
-    width:350px;
-    padding:40px;
-    border-radius:25px;
-    background:rgba(255,255,255,0.7);
-    backdrop-filter:blur(12px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    text-align:center;
-}
+        h2 {
+            text-align: center;
+        }
 
-/* INPUT */
-input{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
 
-/* CAPTCHA BOX */
-.captcha{
-    background:#0ea5e9;
-    color:white;
-    padding:10px;
-    border-radius:10px;
-    font-weight:bold;
-    letter-spacing:3px;
-}
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4facfe;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-/* BUTTON */
-button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:20px;
-    background:#0ea5e9;
-    color:white;
-    cursor:pointer;
-}
+        button:hover {
+            background: #3a8de0;
+        }
 
-/* ERROR */
-.error{
-    background:#ef4444;
-    color:white;
-    padding:8px;
-    border-radius:10px;
-}
-</style>
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
+<div class="login-box">
     <h2>Login</h2>
 
-    <?php if(isset($error)){ ?>
-        <div class="error"><?= $error; ?></div>
-    <?php } ?>
+    <?php if(isset($_GET['pesan'])): ?>
+        <p class="error"><?php echo $_GET['pesan']; ?></p>
+    <?php endif; ?>
 
-    <form method="POST">
+    <form method="POST" action="proses_login.php">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
 
-        <div class="captcha">
-            <?= $_SESSION['captcha']; ?>
-        </div>
+        <select name="role" required>
+            <option value="">-- Pilih Role --</option>
+            <option value="admin">Admin</option>
+            <option value="author">Author</option>
+            <option value="pengguna">User</option>
+        </select>
 
-        <input type="text" name="captcha" placeholder="Masukkan captcha" required>
-
-        <button name="login">Login</button>
+        <button type="submit">Login</button>
     </form>
-
-    <p>Belum punya akun? <a href="daftar.php">Daftar</a></p>
 </div>
 
 </body>
