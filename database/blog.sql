@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2026 at 02:08 PM
+-- Generation Time: Apr 08, 2026 at 06:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -77,15 +77,15 @@ INSERT INTO `artikel_tag` (`id`, `id_artikel`, `id_tag`) VALUES
 (12, 67, 5),
 (13, 67, 8),
 (14, 67, 9),
-(15, 68, 3),
-(16, 68, 10),
-(17, 68, 11),
 (18, 69, 3),
 (19, 69, 8),
 (20, 69, 9),
 (21, 70, 5),
 (22, 70, 9),
-(23, 70, 11);
+(23, 70, 11),
+(24, 68, 3),
+(25, 68, 10),
+(26, 68, 11);
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,9 @@ CREATE TABLE `komentar` (
 
 INSERT INTO `komentar` (`id_komentar`, `id_user`, `id_artikel`, `nama`, `komentar`, `tanggal`, `status`) VALUES
 (17, 5, 70, 'ichi', 'makasih kaa tipsnya', '2026-04-07', 'approved'),
-(18, 10, 68, 'titi', 'ayoo kita olah raga bareng kaa', '2026-04-07', 'approved');
+(18, 10, 68, 'titi', 'ayoo kita olah raga bareng kaa', '2026-04-07', 'approved'),
+(20, 5, 68, 'ichi', 'boleh ga olahraga kalo pas ada cowo ganteng aja?', '2026-04-08', 'approved'),
+(21, 10, 69, 'titi', 'tapi aku kadang gampang ke distract kaa', '2026-04-08', 'pending');
 
 -- --------------------------------------------------------
 
@@ -239,7 +241,7 @@ ALTER TABLE `artikel`
 -- AUTO_INCREMENT for table `artikel_tag`
 --
 ALTER TABLE `artikel_tag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -251,7 +253,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tag`
