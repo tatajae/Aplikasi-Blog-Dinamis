@@ -12,7 +12,7 @@ if(isset($_POST['daftar'])){
     $nama     = mysqli_real_escape_string($conn,$_POST['nama']);
     $username = mysqli_real_escape_string($conn,$_POST['username']);
     $email    = mysqli_real_escape_string($conn,$_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = md5($_POST['password']);
     $captcha  = $_POST['captcha'];
 
     // Validasi captcha
