@@ -17,14 +17,14 @@ if(isset($_POST['daftar'])){
 
     // Validasi captcha
     if($captcha != $_SESSION['captcha']){
-        echo "<script>alert('Captcha salah!');window.location='register.php';</script>";
+        echo "<script>alert('Captcha salah!');window.location='daftar.php';</script>";
         exit;
     }
 
     // Cek username sudah ada
     $cek = mysqli_query($conn,"SELECT * FROM users WHERE username='$username'");
     if(mysqli_num_rows($cek) > 0){
-        echo "<script>alert('Username sudah digunakan!');window.location='register.php';</script>";
+        echo "<script>alert('Username sudah digunakan!');window.location='daftar.php';</script>";
         exit;
     }
 

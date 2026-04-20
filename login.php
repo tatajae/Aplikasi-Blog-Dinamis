@@ -2,69 +2,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            height: 100vh;
-            background: linear-gradient(to right, #4facfe, #cfd9df);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<title>Login</title>
 
-        .login-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
-        h2 {
-            text-align: center;
-        }
+<style>
+body{
+    margin:0;
+    font-family:Poppins;
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    padding:35px;
+    border-radius:20px;
+    width:360px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    text-align:center;
+    color:white;
+}
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #4facfe;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+/* INPUT & SELECT */
+input, select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    outline:none;
+}
 
-        button:hover {
-            background: #3a8de0;
-        }
+/* BUTTON */
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:20px;
+    background:#0ea5e9;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-        .error {
-            color: red;
-            text-align: center;
-        }
-    </style>
+button:hover{
+    background:#0284c7;
+}
+
+/* ERROR */
+.error{
+    background:#ef4444;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+/* LINK */
+a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="login-box">
-    <h2>Login</h2>
+<div class="card">
+    <h2>🔐 Login</h2>
 
     <?php if(isset($_GET['pesan'])): ?>
-        <p class="error"><?php echo $_GET['pesan']; ?></p>
+        <div class="error">
+            <?php echo $_GET['pesan']; ?>
+        </div>
     <?php endif; ?>
 
     <form method="POST" action="proses_login.php">
+
         <input type="text" name="username" placeholder="Username" required>
+
         <input type="password" name="password" placeholder="Password" required>
 
         <select name="role" required>
@@ -75,7 +99,12 @@
         </select>
 
         <button type="submit">Login</button>
+
     </form>
+
+    <br>
+    <a href="daftar.php">Belum punya akun? Daftar</a>
+
 </div>
 
 </body>

@@ -56,6 +56,16 @@ body{
     font-weight:600;
 }
 
+.navbar-inner{
+    max-width:800px;
+    margin:auto;
+    height:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+}
+
 .navbar a{
     margin-left:10px;
     padding:8px 15px;
@@ -168,8 +178,6 @@ textarea{
         <a href="index.php">Home</a>
         <?php if(isset($_SESSION['id_user'])){ ?>
             <a href="logout.php">Logout</a>
-        <?php }else{ ?>
-            <a href="login.php">Login</a>
         <?php } ?>
     </div>
 </div>

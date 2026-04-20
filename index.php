@@ -155,9 +155,6 @@ function closeModal(){
         <?php endif; ?>
 
         <a href="detail_artikel.php?id_artikel=<?= $data['id_artikel']; ?>" class="btn btn-baca">Baca</a>
-        <a href="komentar.php?id_artikel=<?= $data['id_artikel']; ?>" class="btn btn-komentar">
-    Komentar
-</a>
     </div>
 
 </div>
