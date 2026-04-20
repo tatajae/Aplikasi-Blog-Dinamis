@@ -33,6 +33,8 @@ if(!$query){
     die("Query Error: " . mysqli_error($conn));
 }
 
+$_SESSION['notif'] = "Komentar berhasil dikirim!";
+
 // REDIRECT
 header("Location: detail_artikel.php?id_artikel=$id_artikel");
 exit;

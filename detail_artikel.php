@@ -4,14 +4,21 @@ include "koneksi.php";
 
 $id_artikel = $_GET['id_artikel'];
 
-$data = mysqli_query($conn,"SELECT * FROM artikel WHERE id_artikel='$id_artikel'");
+// ✅ Ambil artikel + nama penulis
+$data = mysqli_query($conn,"
+SELECT artikel.*, users.nama 
+FROM artikel
+JOIN users ON artikel.id_user = users.id_user
+WHERE artikel.id_artikel='$id_artikel'
+");
 $d = mysqli_fetch_assoc($data);
 
+// ✅ Ambil komentar (yang sudah approve)
 $komentar = mysqli_query($conn,"
-SELECT komentar.*, users.username 
-FROM komentar 
-JOIN users ON komentar.id_user=users.id_user
-WHERE id_artikel='$id_artikel' ORDER BY id_komentar DESC
+SELECT komentar.*, users.nama 
+FROM komentar
+JOIN users ON komentar.id_user = users.id_user
+WHERE komentar.id_artikel='$id_artikel' AND komentar.status='approved'
 ");
 ?>
 
@@ -35,7 +42,6 @@ body{
     padding-top:90px;
 }
 
-/* NAVBAR (SAMA KAYAK INDEX) */
 .navbar{
     position:fixed;
     top:0;
@@ -56,16 +62,6 @@ body{
     font-weight:600;
 }
 
-.navbar-inner{
-    max-width:800px;
-    margin:auto;
-    height:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 20px;
-}
-
 .navbar a{
     margin-left:10px;
     padding:8px 15px;
@@ -75,13 +71,11 @@ body{
     color:white;
 }
 
-/* CONTAINER */
 .container{
     width:75%;
     margin:auto;
 }
 
-/* ARTIKEL */
 .article{
     background:rgba(255,255,255,0.75);
     backdrop-filter:blur(12px);
@@ -113,7 +107,6 @@ body{
     color:#334155;
 }
 
-/* KOMENTAR */
 .comment-box{
     background:rgba(255,255,255,0.75);
     backdrop-filter:blur(12px);
@@ -122,11 +115,6 @@ body{
     box-shadow:0 15px 35px rgba(0,0,0,0.08);
 }
 
-.comment-box h3{
-    margin-bottom:15px;
-}
-
-/* ITEM KOMENTAR */
 .comment{
     background:white;
     border-radius:15px;
@@ -139,7 +127,6 @@ body{
     color:#0ea5e9;
 }
 
-/* FORM */
 textarea{
     width:100%;
     padding:12px;
@@ -158,14 +145,12 @@ textarea{
     cursor:pointer;
 }
 
-/* ALERT LOGIN */
 .login-alert{
     margin-top:15px;
     padding:15px;
     background:#f1f5f9;
     border-radius:10px;
 }
-
 </style>
 </head>
 
@@ -189,6 +174,7 @@ textarea{
     <h2><?= $d['judul']; ?></h2>
 
     <div class="meta">
+        Ditulis oleh <b><?= $d['nama']; ?></b><br>
         Dipublikasikan pada <?= $d['tanggal']; ?>
     </div>
 
@@ -203,18 +189,19 @@ textarea{
 <div class="comment-box">
     <h3>Komentar</h3>
 
+    <!-- ✅ TAMPILKAN KOMENTAR -->
     <?php if(mysqli_num_rows($komentar) == 0){ ?>
         <p>Belum ada komentar 😶</p>
     <?php } ?>
 
     <?php while($k = mysqli_fetch_assoc($komentar)){ ?>
         <div class="comment">
-            <b><?= $k['username']; ?></b>
+            <b><?= $k['nama']; ?></b>
             <p><?= $k['komentar']; ?></p>
         </div>
     <?php } ?>
 
-    <!-- LOGIN CHECK -->
+    <!-- FORM / LOGIN -->
     <?php if(!isset($_SESSION['id_user'])){ ?>
         <div class="login-alert">
             🔒 Login dulu untuk komentar <br><br>
@@ -235,4 +222,4 @@ textarea{
 </div>
 
 </body>
-</html> 
+</html>

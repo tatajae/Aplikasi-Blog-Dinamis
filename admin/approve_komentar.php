@@ -25,20 +25,20 @@ if (isset($_GET['id_komentar'])) {
         } else {
             echo "<script>
                     alert('Gagal menyetujui komentar: " . mysqli_error($conn) . "');
-                    window.location='?menu=komentar';
+                    window.location='index.php?menu=komentar';
                   </script>";
             exit;
         }
     } else {
         echo "<script>
                 alert('ID komentar tidak valid!');
-                window.location='?menu=komentar';
+                window.location='index.php?menu=komentar';
               </script>";
         exit;
     }
 } else {
     // jika tidak ada ID, kembali ke halaman komentar
-    header("Location: ?menu=komentar");
+    header("Location: index.php?menu=komentar");
     exit;
 }
 ?>
