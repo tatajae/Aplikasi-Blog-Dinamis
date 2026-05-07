@@ -136,3 +136,6 @@ Project ini bersifat **open source** dan dapat digunakan serta dikembangkan kemb
 10. Kesimpulan
 
 Aplikasi Blog Dinamis berbasis web mempermudah proses publikasi dan pengelolaan artikel secara online. Dengan menggunakan teknologi PHP dan MySQL, sistem ini mampu menampilkan konten secara dinamis dan memberikan kemudahan bagi admin dalam mengelola blog.
+
+
+Link youtube https://youtu.be/eFqHaqz57WA 
